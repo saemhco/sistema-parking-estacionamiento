@@ -25,7 +25,7 @@ if (isset($_REQUEST['errorC'])) {
     $mensaje = 'Felicitaciones, ha iniciado sesión correctamente.';
     $tipo = 'success';
 } elseif (isset($_REQUEST['errorU'])) {
-    $mensaje = 'El correo ya existe, por favor verifique.';
+    $mensaje = 'Usuario no encontrado. Verifique el email o regístrese.';
     $tipo = 'error';
 } elseif (isset($_REQUEST['logout'])) {
     $mensaje = 'Felicitaciones, la sesión fue cerrada correctamente.';
