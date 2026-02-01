@@ -1,0 +1,29 @@
+# Configuración local (no subir credenciales)
+config/config.local.php
+config/email_config.local.php
+.env
+.env.local
+*.local.php
+
+# IDE / Editor
+.idea/
+.vscode/
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Logs y caché
+*.log
+logs/
+cache/
+tmp/
+temp/
+
+# Dependencias (si se usara Composer)
+/vendor/
+
+# Archivos de sistema
+*.swp
+*~
+.project
+.settings/

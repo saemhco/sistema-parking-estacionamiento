@@ -56,6 +56,7 @@ La aplicación permite:
 - **PHP** 7.4 o superior (recomendado 8.x), con extensiones: `mysqli`, `json`, `mbstring`
 - **MySQL** o **MariaDB**
 - Servidor web (Apache, Nginx) o servidor embebido de PHP
+- **TCPDF**: para generar PDFs de reserva y factura (`ReservaPDF.php`, `FacturaClientePDF.php`) se usa la carpeta `tcpdf/` en la raíz del proyecto. Si falta, descárgala desde [TCPDF](https://github.com/tecnickcom/TCPDF) o desde el [repositorio original](https://github.com/urian121/sistema-parking-estacionamiento).
 
 ### Instalación
 
@@ -163,7 +164,7 @@ Se puede usar un usuario administrador creado a mano, por ejemplo:
 | `acciones/login/CreateUser.php` | Registro de nuevo cliente desde `crearCuenta.php`; envía a `emails/cuenta_creada_email.php`. |
 | `acciones/servicio_api/api_dias_reserva.php` | API POST: recibe `tipo_plaza` y `total_dias`, devuelve el precio desde `tbl_parking_aire_libre` o `tbl_parking_cubierto`. |
 | `acciones/servicio_api/cambiarStatusReserva.php` | API POST: cambia `estado_reserva` de una reserva (0↔1↔2) según si viene de Reservas Pendientes o de Agenda. |
-| `acciones/exportDataReservas.php` | Exporta reservas a Excel (.xls) según parámetro `expo` (0=pendientes, 1=activas, 2=historial). |
+| `acciones/exportDataReservas.php` | Exporta reservas a Excel (.xls) según parámetro `expo` (0=pendientes, 1=activas, 2=historial). Requiere sesión admin. |
 | `dashboard/funciones.php` | Lógica principal: crear/actualizar perfil, crear reserva (cliente y admin), crear factura, listar reservas/clientes, actualizar cliente desde admin. |
 | `dashboard/ReservaPDF.php` | Genera PDF de una reserva (por `idReserva`). |
 | `dashboard/FacturaClientePDF.php` | Genera PDF de factura (por `idReserva`). |
@@ -229,9 +230,11 @@ sistema-parking-estacionamiento/
 │   └── ...
 ├── emails/               # Envío de correos (reserva, cuenta, factura)
 ├── PHPMailer/            # Librería PHPMailer
+├── tcpdf/                # Librería TCPDF (PDFs de reserva y factura)
 ├── index.php             # Página de login
 ├── crearCuenta.php       # Registro público
-└── msjs.php             # Mensajes toast (éxito/error)
+├── msjs.php              # Mensajes toast (éxito/error)
+└── .gitignore            # Archivos y carpetas ignorados por Git
 ```
 
 ---
