@@ -121,7 +121,7 @@ if (isset($_SESSION['emailUser']) != "") {
                                                 </div>
                                                 <div class="col-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 mb-2">
                                                     <label for="">Asignar Reserva</label>
-                                                    <select name="IdUser" class="form-control form-control-lg" style="border: 1px solid #f60 !important;" required>
+                                                    <select name="IdUser" class="form-control form-control-lg" style="border: 1px solid var(--parking-primary, #1e40af) !important;" required>
                                                         <option value="" selected>Seleccione</option>
                                                         <?php
                                                         while ($cliente = mysqli_fetch_array($clientesBD)) { ?>

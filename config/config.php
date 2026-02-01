@@ -6,9 +6,11 @@ $basededatos = "bd_parking";
 
 $con = mysqli_connect($servidor, $usuario, $password, $basededatos);
 
-function manejarErrorDeConexion($error_message)
-{
-    die("Error al conectar a la Base de Datos: " . $error_message);
+if (!function_exists('manejarErrorDeConexion')) {
+    function manejarErrorDeConexion($error_message)
+    {
+        die("Error al conectar a la Base de Datos: " . $error_message);
+    }
 }
 
 if (mysqli_connect_errno()) {

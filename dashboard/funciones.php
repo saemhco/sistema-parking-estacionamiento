@@ -181,6 +181,53 @@
     }
 
     /**
+     * Conteos para el dashboard del administrador
+     */
+    function getCountReservasPorEstado($con, $estado)
+    {
+        $estado = (int) $estado;
+        $sql = "SELECT COUNT(*) AS total FROM tbl_reservas WHERE estado_reserva = '$estado'";
+        $q = mysqli_query($con, $sql);
+        if (!$q) return 0;
+        $row = mysqli_fetch_assoc($q);
+        return (int) $row['total'];
+    }
+
+    function getCountClientes($con)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM tbl_clientes WHERE rol = 0";
+        $q = mysqli_query($con, $sql);
+        if (!$q) return 0;
+        $row = mysqli_fetch_assoc($q);
+        return (int) $row['total'];
+    }
+
+    /**
+     * Reservas por mes (últimos 6 meses) para gráficas
+     */
+    function getReservasPorMes($con)
+    {
+        $meses = [];
+        $nombres = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $fecha = date('Y-m', strtotime("-$i months"));
+            $mes = date('n', strtotime($fecha . '-01'));
+            $anio = date('Y', strtotime($fecha . '-01'));
+            $fin = date('Y-m-t', strtotime($fecha . '-01'));
+            $sql = "SELECT COUNT(*) AS total FROM tbl_reservas WHERE DATE(date_registro) BETWEEN '$fecha-01' AND '$fin'";
+            $q = mysqli_query($con, $sql);
+            $total = 0;
+            if ($q && $row = mysqli_fetch_assoc($q)) {
+                $total = (int) $row['total'];
+            }
+            $meses[] = $total;
+            $meses_es = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            $nombres[] = $meses_es[(int) $mes - 1] . ' ' . $anio;
+        }
+        return ['labels' => $nombres, 'data' => $meses];
+    }
+
+    /**
      * Crear cuenta de Cliente desde el Administrado
      */
     if (isset($_POST["accion"]) && $_POST["accion"] == "crearCliente") {

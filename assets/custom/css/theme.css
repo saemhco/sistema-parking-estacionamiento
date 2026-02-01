@@ -1,0 +1,435 @@
+/**
+ * Tema Parking - Diseño responsivo y paleta unificada
+ * Compatible con Bootstrap 5 y plantilla del dashboard
+ */
+
+:root {
+  /* Paleta principal - azul */
+  --parking-primary: #1e40af;
+  --parking-primary-dark: #1e3a8a;
+  --parking-primary-light: #3b82f6;
+  --parking-secondary: #1e293b;
+  --parking-success: #059669;
+  --parking-danger: #dc2626;
+  --parking-warning: #d97706;
+  
+  /* Fondos y superficie - estilo uniforme/mimetizado */
+  --parking-bg: #f1f5f9;
+  --parking-bg-auth: #eff6ff;
+  --parking-card-bg: #ffffff;
+  --parking-border: #e2e8f0;
+  
+  /* Texto */
+  --parking-text: #212529;
+  --parking-text-muted: #6c757d;
+  
+  /* Espaciado y bordes */
+  --parking-radius: 0.5rem;
+  --parking-radius-lg: 0.75rem;
+  --parking-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+  --parking-shadow-lg: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
+  
+  /* Touch-friendly (mínimo 44px) */
+  --parking-touch: 2.75rem;
+}
+
+/* --- Botones y enlaces (override Bootstrap / template) --- */
+.btn-primary,
+.auth-form-btn,
+button[type="submit"].btn-primary {
+  background-color: var(--parking-primary) !important;
+  border-color: var(--parking-primary) !important;
+  color: #fff !important;
+  min-height: var(--parking-touch);
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  border-radius: var(--parking-radius);
+}
+.btn-primary:hover,
+.auth-form-btn:hover,
+button[type="submit"].btn-primary:hover {
+  background-color: var(--parking-primary-dark) !important;
+  border-color: var(--parking-primary-dark) !important;
+  color: #fff !important;
+}
+
+a.text-primary,
+.auth-link.text-primary {
+  color: var(--parking-primary) !important;
+}
+a.text-primary:hover {
+  color: var(--parking-primary-dark) !important;
+}
+
+/* --- Login / Auth: contenedor y tarjeta --- */
+body {
+  background-color: var(--parking-bg-auth) !important;
+  min-height: 100vh;
+}
+
+.auth .auth-form-light,
+.parking-auth-card {
+  background: var(--parking-card-bg) !important;
+  border-radius: var(--parking-radius-lg) !important;
+  box-shadow: var(--parking-shadow-lg) !important;
+  border: 1px solid var(--parking-border);
+}
+
+.auth .brand-logo img,
+.parking-logo {
+  max-width: 140px;
+  height: auto;
+}
+
+/* Logo en tono azul (tema unificado) */
+.parking-logo-blue,
+.auth .brand-logo img.parking-logo,
+.navbar-brand img.parking-logo {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(60%) saturate(2000%) hue-rotate(210deg) brightness(0.9) contrast(1.1);
+}
+
+/* --- Formularios: inputs más grandes en móvil --- */
+.form-control,
+.form-control-lg {
+  min-height: var(--parking-touch);
+  border-radius: var(--parking-radius);
+  border: 1px solid var(--parking-border);
+}
+.form-control:focus {
+  border-color: var(--parking-primary);
+  box-shadow: 0 0 0 0.2rem rgba(30, 64, 175, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: var(--parking-primary);
+  border-color: var(--parking-primary);
+}
+
+/* --- Dashboard: sidebar y acentos --- */
+.sidebar .nav .nav-item.active > .nav-link,
+.sidebar .nav .nav-item > .nav-link[aria-expanded="true"] {
+  color: #fff !important;
+  background-color: var(--parking-primary) !important;
+}
+
+.sidebar .nav .nav-item .nav-link:hover {
+  background-color: rgba(30, 64, 175, 0.12);
+}
+
+/* Icono coche en sidebar: azul claro por defecto, blanco al activar (evita naranja) */
+.sidebar .nav .nav-link .sidebar-icon-car {
+  color: var(--parking-primary-light) !important;
+  font-size: 1.25rem;
+}
+.sidebar .nav .nav-item.active .nav-link .sidebar-icon-car,
+.sidebar .nav .nav-link:hover .sidebar-icon-car,
+.sidebar .nav .nav-link[aria-expanded="true"] .sidebar-icon-car {
+  color: #fff !important;
+}
+
+.bi-person-fill.perfil_radius,
+.perfil_radius {
+  color: var(--parking-primary) !important;
+}
+
+.card.card-light-danger {
+  background: linear-gradient(135deg, var(--parking-primary) 0%, var(--parking-primary-light) 100%) !important;
+  color: #fff;
+  border: none;
+}
+
+/* Caja de icono azul en dashboard admin */
+.parking-dashboard-card .flex-shrink-0.rounded-3.parking-dashboard-card-primary,
+.parking-dashboard-admin .rounded-3.parking-dashboard-card-primary {
+  background: linear-gradient(135deg, var(--parking-primary) 0%, var(--parking-primary-light) 100%) !important;
+  color: #fff;
+}
+
+/* Iconos y enlaces de acción */
+.bi-filetype-csv,
+.bi-filetype-pdf,
+.bi-receipt {
+  color: var(--parking-primary) !important;
+}
+.bi-filetype-csv:hover,
+.bi-filetype-pdf:hover {
+  color: var(--parking-success) !important;
+}
+
+.campo_obligatorio {
+  border-color: var(--parking-primary) !important;
+}
+
+/* Datepicker (gijgo) */
+.gj-picker-md [role="header"],
+.gj-picker-md [role="footer"] button,
+.gj-picker-md .arrow-begin,
+.gj-picker-md .arrow-end,
+.gj-picker-md table tr td.selected.gj-cursor-pointer div,
+.gj-icon {
+  background-color: var(--parking-primary) !important;
+  color: #fff !important;
+  border-color: var(--parking-primary) !important;
+}
+
+/* --- Ocultar panel de temas en móvil (evita barra cortada a la derecha) --- */
+@media (max-width: 991.98px) {
+  .theme-setting-wrapper {
+    display: none !important;
+  }
+}
+
+/* --- Responsive: móvil primero --- */
+@media (max-width: 575.98px) {
+  .container-scroller .content-wrapper {
+    padding: 1rem 0.75rem !important;
+  }
+  
+  .auth .auth-form-light,
+  .parking-auth-card {
+    padding: 1.5rem 1rem !important;
+    margin: 0 0.5rem;
+  }
+  
+  .auth .brand-logo img,
+  .parking-logo {
+    max-width: 100px;
+  }
+  
+  h1.card-title,
+  h2.card-title {
+    font-size: 1.35rem !important;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-brand img {
+    height: 40px;
+  }
+  
+  .navbar .navbar-menu-wrapper .nav-profile .nav-link span {
+    display: none;
+  }
+  
+  /* Tablas: scroll horizontal */
+  .table-responsive {
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+  }
+  
+  .table-responsive .table {
+    font-size: 0.875rem;
+  }
+  
+  .table-responsive .table th,
+  .table-responsive .table td {
+    padding: 0.5rem;
+    white-space: nowrap;
+  }
+  
+  .btn-block,
+  .auth-form-btn {
+    width: 100%;
+  }
+}
+
+/* --- Dashboard móvil: contenido más limpio --- */
+@media (max-width: 991.98px) {
+  .page-body-wrapper {
+    overflow-x: hidden;
+  }
+  
+  .main-panel {
+    width: 100% !important;
+  }
+  
+  .main-panel .content-wrapper {
+    padding: 1rem !important;
+  }
+  
+  .card .card-body {
+    padding: 1rem !important;
+  }
+  
+  .card .card-title {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    text-align: center !important;
+  }
+  
+  .card .card-title hr {
+    width: 100%;
+    margin: 0.5rem 0 !important;
+    order: 2;
+  }
+  
+  /* Título de página: botón exportar debajo del texto en móvil */
+  .card-title .float-end,
+  .card-title a[download] {
+    float: none !important;
+    order: 1;
+    margin-top: 0 !important;
+  }
+  
+  /* DataTables: controles más legibles */
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter {
+    margin-bottom: 0.75rem;
+  }
+  
+  .dataTables_wrapper .dataTables_length label,
+  .dataTables_wrapper .dataTables_filter label {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .dataTables_wrapper .dataTables_length select,
+  .dataTables_wrapper .dataTables_filter input {
+    margin: 0 0.25rem;
+    min-width: 4rem;
+  }
+  
+  .dataTables_wrapper .row:first-child {
+    margin-bottom: 0.5rem;
+  }
+  
+  .dataTables_wrapper .dataTables_info {
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate {
+    padding: 0.5rem 0;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .auth .auth-form-light,
+  .parking-auth-card {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .col-md-6.mx-auto {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-panel .content-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+/* Sidebar colapsable en móvil (complementa template) */
+@media (max-width: 991.98px) {
+  .sidebar {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .sidebar .nav-link {
+    padding: 0.75rem 1rem;
+    min-height: var(--parking-touch);
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar .nav-link .menu-title {
+    margin-left: 0.5rem;
+  }
+}
+
+/* Utilidades */
+.parking-text-primary { color: var(--parking-primary) !important; }
+.parking-bg-primary { background-color: var(--parking-primary) !important; }
+
+/* Dashboard admin: tarjetas con hover suave */
+.parking-dashboard-admin .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.parking-dashboard-admin .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(30, 64, 175, 0.12) !important;
+}
+.parking-dashboard-admin .card a:hover .fw-bold {
+  color: var(--parking-primary) !important;
+}
+
+/* --- Override naranja/rojo del template: todo compatible con azul --- */
+/* Sidebar: cualquier ítem activo o hover en azul (no naranja) */
+.sidebar .nav .nav-item .nav-link.active,
+.sidebar .nav .nav-item.active .nav-link,
+.sidebar .nav .nav-item .nav-link[aria-expanded="true"],
+.sidebar .nav .nav-item:hover .nav-link {
+  background-color: var(--parking-primary) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+.sidebar .nav .nav-item .nav-link:hover {
+  background-color: var(--parking-primary-light) !important;
+  color: #fff !important;
+}
+
+/* DataTables: paginación actual en azul */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: var(--parking-primary) !important;
+  border-color: var(--parking-primary) !important;
+  color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: var(--parking-primary-light) !important;
+  border-color: var(--parking-primary-light) !important;
+  color: #fff !important;
+}
+
+/* Navbar dropdown y enlaces: primario en azul */
+.navbar .dropdown-menu .dropdown-item.text-primary,
+.navbar .dropdown-menu .dropdown-item .text-primary,
+.navbar-dropdown .dropdown-item i.text-primary {
+  color: var(--parking-primary) !important;
+}
+.navbar .dropdown-menu .dropdown-item:hover {
+  background-color: rgba(30, 64, 175, 0.08);
+}
+
+/* Botones de acción secundaria: azul en lugar de naranja/rojo cuando sea acento */
+.btn-info.btn_padding,
+.btn-info.btn_padding:hover {
+  background-color: var(--parking-primary-light) !important;
+  border-color: var(--parking-primary-light) !important;
+  color: #fff !important;
+}
+
+/* Outline primary: azul (no naranja) */
+.btn-outline-primary {
+  color: var(--parking-primary) !important;
+  border-color: var(--parking-primary) !important;
+}
+.btn-outline-primary:hover {
+  background-color: var(--parking-primary) !important;
+  border-color: var(--parking-primary) !important;
+  color: #fff !important;
+}
+
+/* Botón flotante de ajustes (engranaje): azul en lugar de naranja */
+#settings-trigger {
+  background: var(--parking-primary) !important;
+  color: #fff !important;
+  border-color: var(--parking-primary) !important;
+}
+#settings-trigger:hover {
+  background: var(--parking-primary-dark) !important;
+  color: #fff !important;
+}
+#settings-trigger i {
+  color: #fff !important;
+}

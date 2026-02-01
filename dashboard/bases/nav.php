@@ -4,6 +4,12 @@
     <?php
     if ($rolUser == 1) { ?>
       <li class="nav-item">
+        <a class="nav-link" href="./">
+          <i class="bi bi-grid-1x2 menu-icon"></i>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="Agenda.php">
           <i class="bi bi-calendar2-check menu-icon"></i>
           <span class="menu-title">Mi Agenda</span>
@@ -17,7 +23,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="CrearReserva.php">
-          <img src="../assets/custom/imgs/carro.png" alt="car" style="padding: 0px 10px 0px 0px" />
+          <i class="bi bi-car-front-fill menu-icon sidebar-icon-car"></i>
           <span class="menu-title">Crear Reserva</span>
         </a>
       </li>
@@ -42,7 +48,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Reservas.php">
-          <img src="../assets/custom/imgs/carro.png" alt="car" style="padding: 0px 10px 0px 0px" />
+          <i class="bi bi-car-front-fill menu-icon sidebar-icon-car"></i>
           <span class="menu-title">Mis Reservas</span>
         </a>
       </li>

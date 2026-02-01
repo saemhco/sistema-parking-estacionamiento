@@ -50,14 +50,14 @@
   height: 2.75rem;
   margin-bottom: 0.75rem;
   vertical-align: text-bottom;
-  border: 0.15em solid #f60;
+  border: 0.15em solid #1e40af;
   border-right-color: transparent;
   border-radius: 50%;
   -webkit-animation: spinner 0.75s linear infinite;
   animation: spinner 0.75s linear infinite;
 }
 .dark-mode .page-spinner {
-  border-color: #f60;
+  border-color: #1e40af;
   border-right-color: transparent;
 }
 @-webkit-keyframes spinner {

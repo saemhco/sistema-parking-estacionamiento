@@ -34,7 +34,138 @@ if (isset($_SESSION['emailUser']) != "") {
         <div class="main-panel">
           <div class="content-wrapper">
             <?php
-            if ($rolUser == 0) { ?>
+            include 'funciones.php';
+            if ($rolUser == 1) {
+              $num_activas = getCountReservasPorEstado($con, 1);
+              $num_pendientes = getCountReservasPorEstado($con, 0);
+              $num_historial = getCountReservasPorEstado($con, 2);
+              $num_clientes = getCountClientes($con);
+              $reservasPorMes = getReservasPorMes($con);
+              $chartReservasMes = htmlspecialchars(json_encode($reservasPorMes), ENT_QUOTES, 'UTF-8');
+              $chartEstadoReservas = htmlspecialchars(json_encode([
+                'labels' => ['Activas', 'Pendientes', 'Historial'],
+                'data' => [$num_activas, $num_pendientes, $num_historial]
+              ]), ENT_QUOTES, 'UTF-8');
+            ?>
+              <div class="parking-dashboard-admin">
+                <h1 class="mb-4" style="font-size: 1.75rem; font-weight: 600; color: var(--parking-secondary, #1e293b);">Panel de administración</h1>
+                <p class="text-muted mb-4">Resumen general del sistema</p>
+                <div class="row g-3 g-md-4 mb-4">
+                  <div class="col-12 col-sm-6 col-xl-3">
+                    <a href="Agenda.php" class="text-decoration-none">
+                      <div class="card parking-dashboard-card h-100 border-0 shadow-sm">
+                        <div class="card-body d-flex align-items-center">
+                          <div class="flex-shrink-0 rounded-3 parking-dashboard-card-primary p-3 me-3">
+                            <i class="bi bi-calendar2-check text-white" style="font-size: 1.75rem;"></i>
+                          </div>
+                          <div>
+                            <div class="fw-bold text-dark" style="font-size: 1.5rem;"><?php echo $num_activas; ?></div>
+                            <div class="text-muted small">Reservas activas</div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-12 col-sm-6 col-xl-3">
+                    <a href="ReservasPendientes.php" class="text-decoration-none">
+                      <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body d-flex align-items-center">
+                          <div class="flex-shrink-0 rounded-3 bg-warning bg-opacity-25 p-3 me-3">
+                            <i class="bi bi-calendar2-week" style="font-size: 1.75rem; color: #b45309;"></i>
+                          </div>
+                          <div>
+                            <div class="fw-bold text-dark" style="font-size: 1.5rem;"><?php echo $num_pendientes; ?></div>
+                            <div class="text-muted small">Pendientes</div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-12 col-sm-6 col-xl-3">
+                    <a href="CrearCliente.php" class="text-decoration-none">
+                      <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body d-flex align-items-center">
+                          <div class="flex-shrink-0 rounded-3 bg-success bg-opacity-25 p-3 me-3">
+                            <i class="bi bi-people" style="font-size: 1.75rem; color: #15803d;"></i>
+                          </div>
+                          <div>
+                            <div class="fw-bold text-dark" style="font-size: 1.5rem;"><?php echo $num_clientes; ?></div>
+                            <div class="text-muted small">Clientes</div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-12 col-sm-6 col-xl-3">
+                    <a href="HistorialReservas.php" class="text-decoration-none">
+                      <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body d-flex align-items-center">
+                          <div class="flex-shrink-0 rounded-3 bg-secondary bg-opacity-25 p-3 me-3">
+                            <i class="bi bi-calendar3" style="font-size: 1.75rem; color: #4b5563;"></i>
+                          </div>
+                          <div>
+                            <div class="fw-bold text-dark" style="font-size: 1.5rem;"><?php echo $num_historial; ?></div>
+                            <div class="text-muted small">Historial</div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body">
+                    <h2 class="h6 fw-bold text-dark mb-3">Accesos rápidos</h2>
+                    <div class="d-flex flex-wrap gap-2">
+                      <a href="CrearReserva.php" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i> Nueva reserva
+                      </a>
+                      <a href="CrearCliente.php" class="btn btn-outline-primary">
+                        <i class="bi bi-person-plus me-1"></i> Nuevo cliente
+                      </a>
+                      <a href="Agenda.php" class="btn btn-outline-secondary">
+                        <i class="bi bi-calendar2-check me-1"></i> Mi agenda
+                      </a>
+                      <a href="ReservasPendientes.php" class="btn btn-outline-secondary">
+                        <i class="bi bi-calendar2-week me-1"></i> Pendientes
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3 g-md-4 mt-2">
+                  <div class="col-12 col-lg-8">
+                    <div class="card border-0 shadow-sm h-100">
+                      <div class="card-body">
+                        <h2 class="h6 fw-bold text-dark mb-3">
+                          <i class="bi bi-graph-up me-1 text-primary"></i> Reservas por mes
+                        </h2>
+                        <div class="position-relative" style="height: 280px;">
+                          <canvas id="chartReservasMes"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                      <div class="card-body">
+                        <h2 class="h6 fw-bold text-dark mb-3">
+                          <i class="bi bi-pie-chart me-1 text-primary"></i> Estado de reservas
+                        </h2>
+                        <div class="position-relative d-flex align-items-center justify-content-center" style="height: 280px;">
+                          <canvas id="chartEstadoReservas"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  window.ParkingCharts = {
+                    reservasPorMes: <?php echo $chartReservasMes; ?>,
+                    estadoReservas: <?php echo $chartEstadoReservas; ?>
+                  };
+                </script>
+              </div>
+            <?php
+            } elseif ($rolUser == 0) { ?>
               <div class="row justify-content-md-center">
                 <div class="col-md-8 grid-margin">
                   <div class="card">
@@ -175,6 +306,75 @@ if (isset($_SESSION['emailUser']) != "") {
     <script src="https://unpkg.com/gijgo@1.9.14/js/messages/messages.es-es.js" type="text/javascript"></script>
     <script src="../assets/custom/js/custom_date_time.js"></script>
     <script src="../assets/custom/js/reserva_cliente.js"></script>
+    <?php if (isset($rolUser) && $rolUser == 1): ?>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          if (typeof window.ParkingCharts === 'undefined') return;
+          var primary = getComputedStyle(document.documentElement).getPropertyValue('--parking-primary').trim() || '#1e40af';
+          var reservas = window.ParkingCharts.reservasPorMes;
+          var estado = window.ParkingCharts.estadoReservas;
+          var canvasMes = document.getElementById('chartReservasMes');
+          var canvasEstado = document.getElementById('chartEstadoReservas');
+          if (reservas && canvasMes) {
+            new Chart(canvasMes, {
+              type: 'bar',
+              data: {
+                labels: reservas.labels,
+                datasets: [{
+                  label: 'Reservas',
+                  data: reservas.data,
+                  backgroundColor: primary + '33',
+                  borderColor: primary,
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      stepSize: 1
+                    }
+                  },
+                  x: {}
+                }
+              }
+            });
+          }
+          if (estado && canvasEstado) {
+            new Chart(canvasEstado, {
+              type: 'doughnut',
+              data: {
+                labels: estado.labels,
+                datasets: [{
+                  data: estado.data,
+                  backgroundColor: [primary, '#eab308', '#6b7280'],
+                  borderWidth: 0
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'bottom'
+                  }
+                },
+                cutout: '60%'
+              }
+            });
+          }
+        });
+      </script>
+    <?php endif; ?>
 
   </body>
 
